@@ -1,0 +1,31 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - npm ci
+      - npm cache clean --force
+
+  pre_build:
+    commands:
+      - npm run lint
+
+  build:
+    commands:
+      - npm run build
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+
+cache:
+  paths:
+    - 'node_modules/**/*'
+    - '.next/cache/**/*'
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: .next 
